@@ -13,7 +13,7 @@ Creating it is as simple as
     )
 ```
 
-### It also has some of the TextField controls that would help you have a much more fine grained controls over the search field
+#### It also has some of the TextField controls that would help you have a much more fine grained controls over the search field
 
 ### Following are the properties that you can work with: 
 
