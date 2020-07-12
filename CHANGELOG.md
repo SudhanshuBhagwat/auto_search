@@ -1,3 +1,2 @@
-## [0.0.1] - TODO: Add release date.
-
-* TODO: Describe initial release.
+## [1.0.0] - 12/7/2020
+Added some more fine grain controls to the AutoSearchInput
