@@ -1,0 +1,22 @@
+name: AutoSearchInputExample
+description: An example to show how the AutoSearchInput works.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.3
+  auto_search: 
+    path: C:\Users\sbhagwa\Documents\Projects\Packages\auto_search
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

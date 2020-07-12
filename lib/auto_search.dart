@@ -2,25 +2,65 @@ library auto_search;
 
 import 'package:flutter/material.dart';
 
+///Class for adding AutoSearchInput to your project
 class AutoSearchInput extends StatefulWidget {
+  ///List of data that can be searched through for the results
   final List<String> data;
+
+  ///The max number of elements to be displayed when the TextField is clicked
   final int maxElementsToDisplay;
+
+  ///The color of text which actually appears in the results for which the text
+  ///is typed
   final Color selectedTextColor;
+
+  ///The color of text which actually appears in the results for the
+  ///remaining text
   final Color unSelectedTextColor;
+
+  ///Color of the border when the TextField is enabled
   final Color enabledBorderColor;
+
+  ///Color of the border when the TextField is disabled
   final Color disabledBorderColor;
+
+  ///Color of the border when the TextField is being interated with
   final Color focusedBorderColor;
+
+  ///Color of the cursor
   final Color cursorColor;
+
+  ///Border Radius of the TextField and the resultant elements
   final double borderRadius;
+
+  ///Font Size for both the text in the TextField and the results
   final double fontSize;
+
+  ///Height of a single item in the resultant list
   final double singleItemHeight;
+
+  ///Number of items to be shown when the TextField is tapped
   final int itemsShownAtStart;
+
+  ///Hint text to show inside the TextField
   final String hintText;
+
+  ///Boolean to set autoCorrect
   final bool autoCorrect;
+
+  ///Boolean to set whether the TextField is enabled
   final bool enabled;
+
+  ///onSubmitted function
   final Function onSubmitted;
+
+  ///onTap function
   final Function onTap;
+
+  ///onChanged function
   final Function onChanged;
+
+  ///onEditingComplete function
   final Function onEditingComplete;
 
   const AutoSearchInput({
@@ -59,7 +99,10 @@ class _AutoSearchInputState extends State<AutoSearchInput> {
     _textEditingController.addListener(() {
       setState(() {
         results = widget.data
-            .where((element) => element.startsWith(_textEditingController.text))
+            .where(
+              (element) =>
+                  element.toLowerCase().startsWith(_textEditingController.text),
+            )
             .toList();
         if (results.length > widget.maxElementsToDisplay) {
           results = results.sublist(0, widget.maxElementsToDisplay);
