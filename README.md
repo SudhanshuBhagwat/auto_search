@@ -9,7 +9,8 @@ Creating it is as simple as
     List<String> listOfNames = ['Sample', 'Sample2', 'Sample3', ...so on];
 
     AutoSearchInput(
-        data: listOfNames,                    maxElementsToDisplay: 10,
+        data: listOfNames,                    
+        maxElementsToDisplay: 10,
     )
 ```
 
@@ -32,7 +33,6 @@ Creating it is as simple as
 * enabled (Default vallue = true)
 * onSubmitted
 * onTap
-* onChanged
 * onEditingComplete
 
 ## Let's have a look at the complete Example Widget

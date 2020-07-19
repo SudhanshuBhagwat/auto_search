@@ -1,3 +1,6 @@
+## [1.0.4] - 19/7/2020
+Updated README.
+
 ## [1.0.3] - 19/7/2020
 Fixed a bug where you were not able to search if a search term had a same letter multiple times
 
