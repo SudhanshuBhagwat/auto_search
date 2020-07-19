@@ -57,9 +57,6 @@ class AutoSearchInput extends StatefulWidget {
   ///onTap function
   final Function onTap;
 
-  ///onChanged function
-  final Function onChanged;
-
   ///onEditingComplete function
   final Function onEditingComplete;
 
@@ -81,7 +78,6 @@ class AutoSearchInput extends StatefulWidget {
     this.enabled = true,
     this.onSubmitted,
     this.onTap,
-    this.onChanged,
     this.onEditingComplete,
   }) : assert(data != null, maxElementsToDisplay != null);
 
@@ -96,19 +92,21 @@ class _AutoSearchInputState extends State<AutoSearchInput> {
   @override
   void initState() {
     super.initState();
-    _textEditingController.addListener(() {
-      setState(() {
-        results = widget.data
-            .where(
-              (element) =>
-                  element.toLowerCase().startsWith(_textEditingController.text),
-            )
-            .toList();
-        if (results.length > widget.maxElementsToDisplay) {
-          results = results.sublist(0, widget.maxElementsToDisplay);
-        }
+    _textEditingController
+      ..addListener(() {
+        setState(() {
+          results = widget.data
+              .where(
+                (element) => element
+                    .toLowerCase()
+                    .startsWith(_textEditingController.text.toLowerCase()),
+              )
+              .toList();
+          if (results.length > widget.maxElementsToDisplay) {
+            results = results.sublist(0, widget.maxElementsToDisplay);
+          }
+        });
       });
-    });
   }
 
   @override
@@ -124,13 +122,8 @@ class _AutoSearchInputState extends State<AutoSearchInput> {
               children: [
                 if (_textEditingController.text.length > 0)
                   TextSpan(
-                    text: result.substring(
-                        0,
-                        _textEditingController.text.indexOf(
-                              _textEditingController.text.substring(
-                                  _textEditingController.text.length - 1),
-                            ) +
-                            1),
+                    text:
+                        result.substring(0, _textEditingController.text.length),
                     style: TextStyle(
                       fontSize: widget.fontSize,
                       color: widget.selectedTextColor != null
@@ -140,13 +133,7 @@ class _AutoSearchInputState extends State<AutoSearchInput> {
                   ),
                 TextSpan(
                   text: result.substring(
-                    _textEditingController.text.indexOf(
-                          _textEditingController.text.substring(
-                              _textEditingController.text.length - 1),
-                        ) +
-                        1,
-                    result.length,
-                  ),
+                      _textEditingController.text.length, result.length),
                   style: TextStyle(
                     fontSize: widget.fontSize,
                     color: widget.unSelectedTextColor != null
@@ -175,7 +162,6 @@ class _AutoSearchInputState extends State<AutoSearchInput> {
         TextField(
           autocorrect: widget.autoCorrect,
           enabled: widget.enabled,
-          onChanged: widget.onChanged,
           onEditingComplete: widget.onEditingComplete,
           onSubmitted: widget.onSubmitted,
           onTap: widget.onTap,
