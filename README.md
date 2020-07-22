@@ -11,6 +11,9 @@ Creating it is as simple as
     AutoSearchInput(
         data: listOfNames,                    
         maxElementsToDisplay: 10,
+        onItemTap: (int index) {
+          //Do something cool
+        }
     )
 ```
 
@@ -18,6 +21,9 @@ Creating it is as simple as
 
 ### Following are the properties that you can work with: 
 
+* data -> @Required
+* maxElementsToDisplay -> @Required
+* onItemTap -> @Required
 * selectedTextColor
 * unSelectedTextColor
 * enabledBorderColor
@@ -32,7 +38,6 @@ Creating it is as simple as
 * autoCorrect (Default vallue = true)
 * enabled (Default vallue = true)
 * onSubmitted
-* onTap
 * onEditingComplete
 
 ## Let's have a look at the complete Example Widget
@@ -55,11 +60,21 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20.0),
-      child: AutoSearchInput(data: names, maxElementsToDisplay: 10),
+      child: AutoSearchInput(
+        data: names, 
+        maxElementsToDisplay: 10,
+        onItemTap: (int index) {
+          //Do something cool
+        }
+      ),
     );
   }
 }
 ```
+
+## Want to add custom logic when the items are tapped?
+
+### The onItemTap function lets you add custom logic. It contains index as an argument which is basically the index of the item from the original data array which is passed.
 
 ## Output
 ![Sample Example App Output](https://i.imgur.com/TtqCVPY.gif)

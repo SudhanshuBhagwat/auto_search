@@ -1,3 +1,9 @@
+## [1.0.6] - 22/7/2020
+Updated documentation related to the new onItemTap functionality
+
+## [1.0.5] - 22/7/2020
+Added the functionality to add custom onTap logic when one of the search results is tapped
+
 ## [1.0.4] - 19/7/2020
 Updated README.
 
