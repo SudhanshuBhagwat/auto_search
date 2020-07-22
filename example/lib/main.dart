@@ -34,7 +34,11 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20.0),
-      child: AutoSearchInput(data: names, maxElementsToDisplay: 10),
+      child: AutoSearchInput(
+        data: names,
+        maxElementsToDisplay: 10,
+        onItemTap: (index) {},
+      ),
     );
   }
 }

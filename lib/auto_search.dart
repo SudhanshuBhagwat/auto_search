@@ -2,6 +2,8 @@ library auto_search;
 
 import 'package:flutter/material.dart';
 
+typedef OnTap = void Function(int index);
+
 ///Class for adding AutoSearchInput to your project
 class AutoSearchInput extends StatefulWidget {
   ///List of data that can be searched through for the results
@@ -54,8 +56,9 @@ class AutoSearchInput extends StatefulWidget {
   ///onSubmitted function
   final Function onSubmitted;
 
-  ///onTap function
-  final Function onTap;
+  ///Function to call when a certain item is clicked
+  /// Takes in a paramter of the item which was clicked
+  final OnTap onItemTap;
 
   ///onEditingComplete function
   final Function onEditingComplete;
@@ -63,6 +66,7 @@ class AutoSearchInput extends StatefulWidget {
   const AutoSearchInput({
     @required this.data,
     @required this.maxElementsToDisplay,
+    @required this.onItemTap,
     this.selectedTextColor,
     this.unSelectedTextColor,
     this.enabledBorderColor,
@@ -77,7 +81,6 @@ class AutoSearchInput extends StatefulWidget {
     this.autoCorrect = true,
     this.enabled = true,
     this.onSubmitted,
-    this.onTap,
     this.onEditingComplete,
   }) : assert(data != null, maxElementsToDisplay != null);
 
@@ -87,6 +90,7 @@ class AutoSearchInput extends StatefulWidget {
 
 class _AutoSearchInputState extends State<AutoSearchInput> {
   List<String> results = [];
+  bool isItemClicked = false;
 
   final TextEditingController _textEditingController = TextEditingController();
   @override
@@ -164,7 +168,13 @@ class _AutoSearchInputState extends State<AutoSearchInput> {
           enabled: widget.enabled,
           onEditingComplete: widget.onEditingComplete,
           onSubmitted: widget.onSubmitted,
-          onTap: widget.onTap,
+          onTap: () {
+            setState(() {
+              if (isItemClicked) {
+                isItemClicked = !isItemClicked;
+              }
+            });
+          },
           controller: _textEditingController,
           decoration: InputDecoration(
             hintText: widget.hintText,
@@ -206,31 +216,52 @@ class _AutoSearchInputState extends State<AutoSearchInput> {
               ? widget.cursorColor
               : Colors.grey[600],
         ),
-        Container(
-          height: widget.itemsShownAtStart * widget.singleItemHeight,
-          child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: results.length,
-            itemBuilder: (context, index) {
-              return Container(
-                height: widget.singleItemHeight,
-                padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey[300]),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(
-                      index == (results.length - 1) ? widget.borderRadius : 0.0,
-                    ),
-                    bottomRight: Radius.circular(
-                      index == (results.length - 1) ? widget.borderRadius : 0.0,
+        if (!isItemClicked)
+          Container(
+            height: widget.itemsShownAtStart * widget.singleItemHeight,
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: results.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  height: widget.singleItemHeight,
+                  padding: const EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey[300]),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(
+                        index == (results.length - 1)
+                            ? widget.borderRadius
+                            : 0.0,
+                      ),
+                      bottomRight: Radius.circular(
+                        index == (results.length - 1)
+                            ? widget.borderRadius
+                            : 0.0,
+                      ),
                     ),
                   ),
-                ),
-                child: _getRichText(results[index]),
-              );
-            },
+                  child: GestureDetector(
+                    onTap: () {
+                      String value = results[index];
+                      widget.onItemTap(widget.data.indexOf(value));
+                      _textEditingController.text = value;
+                      _textEditingController.selection =
+                          TextSelection.fromPosition(
+                        TextPosition(
+                          offset: value.length,
+                        ),
+                      );
+                      setState(() {
+                        isItemClicked = !isItemClicked;
+                      });
+                    },
+                    child: _getRichText(results[index]),
+                  ),
+                );
+              },
+            ),
           ),
-        ),
       ],
     );
   }
