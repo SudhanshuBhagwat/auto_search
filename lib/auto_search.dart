@@ -181,18 +181,15 @@ class _AutoSearchInputState extends State<AutoSearchInput> {
             contentPadding: const EdgeInsets.all(10.0),
             disabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  color: widget.disabledBorderColor != null
-                      ? widget.borderRadius
-                      : Colors.grey[200]),
+                  color: widget.disabledBorderColor ?? Colors.grey[200],
+              ),
               borderRadius: BorderRadius.all(
                 Radius.circular(widget.borderRadius),
               ),
             ),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                color: widget.enabledBorderColor != null
-                    ? widget.borderRadius
-                    : Colors.grey[200],
+                color: widget.enabledBorderColor ?? Colors.grey[200],
               ),
               borderRadius: BorderRadius.all(
                 Radius.circular(widget.borderRadius),
@@ -200,9 +197,8 @@ class _AutoSearchInputState extends State<AutoSearchInput> {
             ),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  color: widget.focusedBorderColor != null
-                      ? widget.borderRadius
-                      : Colors.grey[200]),
+                  color: widget.focusedBorderColor ?? Colors.grey[200],
+              ),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(widget.borderRadius),
                 topRight: Radius.circular(widget.borderRadius),
@@ -212,9 +208,7 @@ class _AutoSearchInputState extends State<AutoSearchInput> {
           style: TextStyle(
             fontSize: widget.fontSize,
           ),
-          cursorColor: widget.cursorColor != null
-              ? widget.cursorColor
-              : Colors.grey[600],
+          cursorColor: widget.cursorColor ?? Colors.grey[600],
         ),
         if (!isItemClicked)
           Container(
